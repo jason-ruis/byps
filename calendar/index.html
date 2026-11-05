@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BYPS 2026-2027 Youth Ministry Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,600;0,700;1,600&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bethel-teal: #0B7AA0;
+    --bethel-blue: #46B1D5;
+    --bethel-green: #8DC63F;
+    --bethel-green-light: #94CA49;
+    --teal-dark: #085A76;
+    --teal-tint: #E2F0F5;
+    --blue-tint: #EDF7FB;
+    --green-dark: #6FA22E;
+    --green-tint: #F0F7E4;
+    --ink: #22333B;
+    --gray: #5C6B73;
+    --gray-light: #CBD5DA;
+    --paper: #FFFFFF;
+    --paper-warm: #F7F9FA;
+
+    --font-serif: "Source Serif 4", Georgia, serif;
+    --font-sans: "Open Sans", Helvetica, Arial, sans-serif;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --shadow-card: 0 2px 8px rgba(11, 122, 160, 0.10);
+
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper-warm);
+  }
+
+  .page { max-width: 1400px; margin: 0 auto; padding: var(--space-xl) var(--space-lg) var(--space-2xl); }
+
+  /* Masthead */
+  header.masthead {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(247, 249, 250, 0.94);
+    backdrop-filter: blur(8px);
+    padding: var(--space-lg) 0;
+    margin-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .masthead-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+  }
+
+  .masthead h1 {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--bethel-teal);
+    margin: var(--space-xs) 0 4px;
+  }
+
+  .masthead .subtitle {
+    color: var(--gray);
+    font-size: 14px;
+  }
+
+  .home-link {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bethel-teal);
+    text-decoration: none;
+    margin-bottom: var(--space-sm);
+  }
+  .home-link:hover { text-decoration: underline; }
+  @media print { .home-link { display: none; } }
+
+  /* Controls: toggle + legend */
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-sm);
+  }
+
+  .toggle-control {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--paper);
+    border: 1px solid var(--gray-light);
+    border-radius: 999px;
+    padding: 6px var(--space-md);
+  }
+
+  .toggle-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .switch { position: relative; display: inline-block; width: 40px; height: 22px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--gray-light);
+    transition: .2s;
+    border-radius: 34px;
+  }
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; width: 16px;
+    left: 3px; bottom: 3px;
+    background-color: var(--paper);
+    transition: .2s;
+    border-radius: 50%;
+  }
+  input:checked + .slider { background-color: var(--bethel-teal); }
+  input:checked + .slider:before { transform: translateX(18px); }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: flex-end;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--gray);
+  }
+
+  .legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .sw-1024 { background: var(--bethel-green); }
+  .sw-swat { background: var(--bethel-blue); }
+  .sw-event { background: var(--green-tint); border: 1px solid var(--bethel-green); }
+  .sw-activity { background: var(--green-tint); border: 1px solid var(--green-dark); }
+  .sw-school { background: var(--paper-warm); border: 1px solid var(--gray-light); }
+  .sw-holiday { background: var(--teal-tint); border: 1px solid var(--gray-light); }
+
+  /* Year grid */
+  .year-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .month-card {
+    background: var(--paper);
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  .month-card-header {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--blue-tint);
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .month-card-header h2 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--bethel-teal);
+  }
+
+  .weekday-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    border-bottom: 1px solid var(--gray-light);
+  }
+
+  .weekday-row div {
+    padding: 4px 0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .calendar-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .day-box {
+    min-height: 96px;
+    padding: 4px;
+    border-right: 1px solid var(--paper-warm);
+    border-bottom: 1px solid var(--paper-warm);
+    font-size: 0.7rem;
+  }
+
+  .day-box:nth-child(7n) { border-right: none; }
+
+  .day-box.not-month { background-color: var(--paper-warm); }
+  .day-box.not-month .day-number { color: var(--gray-light); }
+
+  .day-box.is-holiday { background-color: var(--teal-tint); }
+
+  .day-number {
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--ink);
+  }
+
+  .day-number.weekend { color: var(--bethel-teal); }
+
+  .day-tag {
+    font-size: 0.6rem;
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+    margin-top: 2px;
+    display: block;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: normal;
+    word-break: break-word;
+    font-family: var(--font-sans);
+  }
+
+  .tag-1024 { background: var(--green-tint); border-left: 3px solid var(--bethel-green); color: var(--green-dark); }
+  .tag-1024-theme { display: block; font-weight: 400; font-style: italic; opacity: 0.85; margin-top: 1px; }
+  .tag-swat { background: var(--blue-tint); border-left: 3px solid var(--bethel-blue); color: var(--teal-dark); }
+  .tag-event { background: var(--green-tint); border-left: 3px solid var(--bethel-green); color: var(--green-dark); }
+  .tag-activity { background: var(--green-tint); border-left: 3px solid var(--green-dark); color: var(--green-dark); font-weight: 700; }
+  .tag-school { background: var(--paper-warm); border-left: 3px solid var(--gray-light); color: var(--gray); font-style: italic; }
+  .tag-holiday {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 2px;
+    display: block;
+    line-height: 1.2;
+  }
+
+  /* Year theme reference card */
+  .series-card {
+    margin-bottom: var(--space-xl);
+    background: var(--paper);
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    padding: var(--space-lg) var(--space-xl);
+  }
+
+  .series-card h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--bethel-teal);
+    margin: 2px 0 var(--space-xs);
+  }
+
+  .series-intro { color: var(--gray); font-size: 13px; margin-bottom: var(--space-md); }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .series-item { display: flex; gap: var(--space-sm); align-items: flex-start; }
+
+  .series-num {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bethel-teal);
+    color: #fff;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .series-num.num-blue { background: var(--bethel-blue); }
+
+  .series-item-title { font-weight: 700; font-size: 13px; color: var(--ink); }
+  .series-item-date { font-size: 11px; color: var(--gray); }
+
+  /* Schedule logic footer */
+  .schedule-logic {
+    margin-top: var(--space-2xl);
+    background: var(--teal-dark);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+    color: #fff;
+  }
+
+  .schedule-logic .eyebrow { color: var(--bethel-green); margin-bottom: var(--space-xs); }
+
+  .schedule-logic h3 {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: #fff;
+  }
+
+  .schedule-logic ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .schedule-logic li {
+    font-size: 14px;
+    color: #fff;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .schedule-logic li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--bethel-green);
+  }
+
+  footer.page-footer {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--gray-light);
+    font-size: 12px;
+    color: var(--gray);
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .masthead-row { flex-direction: column; }
+    .controls { align-items: flex-start; width: 100%; }
+    .legend { justify-content: flex-start; }
+  }
+
+  @media print {
+    @page { size: landscape; margin: 0.3in; }
+    body { background: var(--paper); }
+    .page { max-width: none; padding: 0; }
+
+    header.masthead {
+      position: static;
+      backdrop-filter: none;
+      padding: 0 0 6px;
+      margin-bottom: 8px;
+    }
+    .eyebrow { font-size: 10px; }
+    .masthead h1 { font-size: 22px; margin: 2px 0; }
+    .masthead .subtitle { font-size: 11px; }
+    .toggle-control { display: none; }
+    .controls { align-items: flex-start; }
+    .legend { gap: var(--space-sm); }
+    .legend-item { font-size: 9px; gap: 4px; }
+    .legend-swatch { width: 9px; height: 9px; }
+
+    .year-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-sm); }
+    .month-card { box-shadow: none; break-inside: avoid; }
+    .month-card-header { padding: 4px var(--space-sm); }
+    .month-card-header h2 { font-size: 15px; }
+    .weekday-row div { font-size: 8px; padding: 2px 0; }
+    .day-box { min-height: 76px; padding: 3px; }
+    .day-number { font-size: 9px; }
+    .day-tag, .tag-holiday { font-size: 0.5rem; padding: 1px 3px; }
+
+    .schedule-logic { break-inside: avoid; margin-top: var(--space-md); padding: var(--space-md) var(--space-lg); }
+    .schedule-logic h3 { font-size: 16px; margin-bottom: var(--space-sm); }
+    .schedule-logic li { font-size: 12px; }
+    .page-footer { margin-top: 6px; padding-top: 4px; font-size: 9px; }
+
+    .series-card { break-inside: avoid; margin-bottom: var(--space-md); padding: var(--space-sm) var(--space-lg); }
+    .series-card h3 { font-size: 15px; margin-bottom: 2px; }
+    .series-intro { font-size: 9px; margin-bottom: var(--space-sm); }
+    .series-grid { grid-template-columns: repeat(9, 1fr); gap: 6px; }
+    .series-item { gap: 4px; }
+    .series-num { width: 16px; height: 16px; font-size: 9px; }
+    .series-item-title { font-size: 9px; }
+    .series-item-date { font-size: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-row">
+      <div>
+        <a class="home-link" href="../">&larr; BYPS home</a>
+        <div class="eyebrow">Bethel Youth Programs</div>
+        <h1>2026-2027 Youth Ministry Calendar</h1>
+        <p class="subtitle">Season planning overview for BYPS families and leaders</p>
+      </div>
+
+      <div class="controls">
+        <div class="toggle-control">
+          <span class="toggle-label">Show School Events</span>
+          <label class="switch">
+            <input type="checkbox" id="schoolToggle" onchange="renderYear()">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-swatch sw-1024"></span> 10:24 Groups</div>
+          <div class="legend-item"><span class="legend-swatch sw-swat"></span> SWaT (MS)</div>
+          <div class="legend-item"><span class="legend-swatch sw-event"></span> BYPS Events</div>
+          <div class="legend-item"><span class="legend-swatch sw-activity"></span> Activity / Fundraiser</div>
+          <div class="legend-item"><span class="legend-swatch sw-school"></span> CWC School Event</div>
+          <div class="legend-item"><span class="legend-swatch sw-holiday"></span> Holiday</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="series-card">
+    <div class="eyebrow">2026-2027 Year Theme for BYPS</div>
+    <h3>Reformed Spiritual Warfare</h3>
+    <p class="series-intro">10:24 Small Groups walk through eight principles of spiritual warfare this season, one per gathering.</p>
+    <div class="series-grid">
+      <div class="series-item"><span class="series-num">1</span><div><div class="series-item-title">The Mission</div><div class="series-item-date">Sep 20, 2026</div></div></div>
+      <div class="series-item"><span class="series-num">2</span><div><div class="series-item-title">Fighting</div><div class="series-item-date">Oct 11, 2026</div></div></div>
+      <div class="series-item"><span class="series-num">3</span><div><div class="series-item-title">Focused Effort</div><div class="series-item-date">Nov 1, 2026</div></div></div>
+      <div class="series-item"><span class="series-num">4</span><div><div class="series-item-title">Guard Yourself</div><div class="series-item-date">Nov 15, 2026</div></div></div>
+      <div class="series-item"><span class="series-num">5</span><div><div class="series-item-title">Fight Together</div><div class="series-item-date">Jan 24, 2027</div></div></div>
+      <div class="series-item"><span class="series-num">6</span><div><div class="series-item-title">Stay Connected</div><div class="series-item-date">Feb 7, 2027</div></div></div>
+      <div class="series-item"><span class="series-num">7</span><div><div class="series-item-title">Small Moves</div><div class="series-item-date">Mar 7, 2027</div></div></div>
+      <div class="series-item"><span class="series-num">8</span><div><div class="series-item-title">Never Quit</div><div class="series-item-date">Apr 18, 2027</div></div></div>
+    </div>
+  </div>
+
+  <div class="series-card">
+    <div class="eyebrow">2026-2027 Year Theme for SWAT</div>
+    <h3>Middle School Apologetics</h3>
+    <p class="series-intro">SWaT (Middle School Night) walks through five foundational questions of the faith this season, one per gathering.</p>
+    <div class="series-grid">
+      <div class="series-item"><span class="series-num num-blue">1</span><div><div class="series-item-title">Know Why</div><div class="series-item-date">Oct 14, 2026</div></div></div>
+      <div class="series-item"><span class="series-num num-blue">2</span><div><div class="series-item-title">God Exists</div><div class="series-item-date">Nov 11, 2026</div></div></div>
+      <div class="series-item"><span class="series-num num-blue">3</span><div><div class="series-item-title">Trust It</div><div class="series-item-date">Jan 13, 2027</div></div></div>
+      <div class="series-item"><span class="series-num num-blue">4</span><div><div class="series-item-title">He's Alive</div><div class="series-item-date">Mar 10, 2027</div></div></div>
+      <div class="series-item"><span class="series-num num-blue">5</span><div><div class="series-item-title">God &amp; Evil</div><div class="series-item-date">Apr 14, 2027</div></div></div>
+    </div>
+  </div>
+
+  <div id="yearContainer" class="year-grid"></div>
+
+  <div class="schedule-logic">
+    <div class="eyebrow">Schedule Logic</div>
+    <h3>How the Recurring Rhythm Works</h3>
+    <ul>
+      <li>1st &amp; 3rd Sundays: 10:24 Small Groups (7:00-8:30pm)</li>
+      <li>2nd Wednesdays: SWaT (Middle School Night)</li>
+      <li>4th Wednesdays: Activity or Fundraiser Night</li>
+    </ul>
+  </div>
+
+  <footer class="page-footer">
+    Bethel Youth Programs &mdash; Bethel Christian Reformed Church, Waupun WI
+  </footer>
+
+</div>
+
+<script src="../events.js"></script>
+<script>
+    // All dates and rules live in ../events.js
+    const { monthNames, yearPlan } = BYPS;
+
+    function tagHtml(entry) {
+        const sub = entry.theme ? `<span class="tag-1024-theme">${entry.theme}</span>` : '';
+        const label = entry.cat === 'school' ? `SCH: ${entry.title}` : entry.title;
+        return `<span class="day-tag tag-${entry.cat}">${label}${sub}</span>`;
+    }
+
+    function createMonthUI(year, month) {
+        const showSchool = document.getElementById('schoolToggle').checked;
+        const container = document.createElement('div');
+        container.className = 'month-card';
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const startDayOfWeek = firstDay.getDay();
+        const totalDays = lastDay.getDate();
+        const prevLastDay = new Date(year, month, 0).getDate();
+
+        let html = `
+            <div class="month-card-header">
+                <h2>${monthNames[month]} ${year}</h2>
+            </div>
+            <div class="weekday-row">
+                <div>S</div><div>M</div><div>T</div>
+                <div>W</div><div>T</div><div>F</div>
+                <div>S</div>
+            </div>
+            <div class="calendar-mini-grid">
+        `;
+
+        for (let i = startDayOfWeek - 1; i >= 0; i--) {
+            html += `<div class="day-box not-month"><div class="day-number">${prevLastDay - i}</div></div>`;
+        }
+
+        for (let i = 1; i <= totalDays; i++) {
+            const entries = BYPS.entriesFor(year, month, i, { showSchool });
+            const isHoliday = entries.some(e => e.cat === 'holiday');
+            const dayContent = entries.map(tagHtml).join('');
+            const dow = (new Date(year, month, i)).getDay();
+            html += `
+                <div class="day-box ${isHoliday ? 'is-holiday' : ''}">
+                    <div class="day-number ${[0, 6].includes(dow) ? 'weekend' : ''}">${i}</div>
+                    ${dayContent}
+                </div>
+            `;
+        }
+
+        const currentCells = startDayOfWeek + totalDays;
+        const remaining = 42 - currentCells;
+        for (let i = 1; i <= remaining; i++) {
+            html += `<div class="day-box not-month"><div class="day-number">${i}</div></div>`;
+        }
+
+        html += `</div>`;
+        container.innerHTML = html;
+        return container;
+    }
+
+    function renderYear() {
+        const container = document.getElementById('yearContainer');
+        container.innerHTML = '';
+        yearPlan.forEach(plan => {
+            container.appendChild(createMonthUI(plan.year, plan.month));
+        });
+    }
+
+    window.onload = renderYear;
+</script>
+</body>
+</html>
